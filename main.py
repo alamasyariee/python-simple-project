@@ -1,11 +1,16 @@
-import requests
-from bs4 import BeautifulSoup as bs
+import os
 
-github_user = input('Input github user: ')
-url = 'https://github.com/' + github_user
+def main():
+    i = 0
+    path = input('Masukkan path folder file yang ingin diubah: ')
 
-r = requests.get(url)
-soup = bs(r.content, 'html.parser')
-profile_image = soup.find('img', {'alt': 'Avatar'})['src']
+    for filename in os.listdir(path):
+        my_dest = 'img' + str(i) + '.jpg'
+        my_source = path + filename
+        my_dest += path
 
-print(profile_image)
+        os.rename(my_source, my_dest)
+        i = i + 1
+
+if __name__ == '__main__':
+    main()
